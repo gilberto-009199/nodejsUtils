@@ -6,7 +6,7 @@ var app  = new express();
 
 var server = http.createServer(app);
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 server.listen(port,function(){
  console.log("Server rodando");
