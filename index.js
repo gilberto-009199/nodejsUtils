@@ -44,7 +44,7 @@ app.get('/email',(req,res)=>{
 })
 
 function sendEmail(opcoes){
-	return new Promise((resolve,reject){
+	return new Promise((resolve,reject)=>{
 		pacote.sendMail(opcoes,function(error,info){
 			if (error) {
 	    			console.log(error);
