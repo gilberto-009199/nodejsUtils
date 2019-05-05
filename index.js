@@ -23,7 +23,9 @@ var pacote = nodemailer.createTransport({
   tls:{rejectUnauthorized:false}
 })
 
-
+app.get('/',(req,res)=>{
+	res.send('SERVIDOR Rodando');
+})
 app.get('/email',(req,res)=>{
 	
 	var configuracao = {
