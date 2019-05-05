@@ -1,5 +1,6 @@
 var http = require('http');
 var express = require('express');
+var bodyParser = require('body-parser')
 var nodemailer = require('nodemailer');
 
 var app  = new express();
@@ -23,16 +24,29 @@ var pacote = nodemailer.createTransport({
   tls:{rejectUnauthorized:false}
 })
 
+//app.use(bodyParser.json())
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
 app.get('/',(req,res)=>{
 	res.send('SERVIDOR Rodando');
 })
-app.get('/email',(req,res)=>{
+app.post('/email',(req,res)=>{
+
+	console.log("Dados",req.body);
 	
+	if(req.body.key  != "5748844fd988sdfsfsad")return res.send({success:false,message:"Chave de acesso incorreta"});
+
+	email		= req.body.email;
+	conteudo	= req.body.conteudo;
+	assunto 	= req.body.assunto;
+	//console.log("Req:",req);
+
 	var configuracao = {
 		from:'mobshare@vivaldi.net',
-		to:'gilberto.tec@vivaldi.net',
-		subject:'Teste!!!',
-		text:'Hellow !!!'
+		to:email,
+		subject:assunto,
+		html:conteudo
 	}
 
 	return sendEmail(configuracao).then(resultado=>{
